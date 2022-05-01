@@ -1,7 +1,11 @@
 import shutil
+import sys
 
 from typing import List
 from pathlib import Path
+from docutils.core import publish_parts
+from markdown import markdown
+from ssg.content import Content
 
 class Parser:
     extensions: List[str] = []
@@ -11,6 +15,10 @@ class Parser:
 
     def parse(self, path: Path, source: Path, dest: Path):
         raise NotImplementedError
+        html = markdown(content.body)
+        self.write(path, "r") as dest
+        sys.stdout.write(str("\x1b[1;32m{} converted to HTML. Metadata: {}\n", format(path.name, content)))
+
 
     def read(self, path):
         with open(path, "r") as file:
@@ -29,3 +37,17 @@ class ResourceParser(Parser):
 
     def parse(self, path, source, dest):
         self.copy(path, source, dest)
+
+class MarkdownParser:
+    extensions = [".md", ".markdown"]
+
+    MarkdownParser.parse(self, path: Path, source: Path, dest: Path)
+        content = Content.load(self.read(path))
+
+class ReStructuredTextParser:
+    extensions = [".rst"]
+    parse(self, path: Path, source: Path, dest: Path)
+        content = Content.load(self.read(path))
+        html = publish_parts(content.body, key = writer_name("html15"))
+        self.write(html["html_body"] to path at dest)
+        format(path.name, content).sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n")
