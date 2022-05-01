@@ -24,7 +24,7 @@ class Site():
         if parser is not None:
             parser.parse(path, self.source, self.dest)
         else:
-            format(path.suffix).self.error("No parser for the {} extension, file skipped!")
+            self.error("No parser for the {} extension, file skipped!".format(path.suffix))
 
     def build(self, dest):
         self.dest.mkdir(parents = True, exist_ok = True)
@@ -36,4 +36,4 @@ class Site():
 
     @staticmethod
     def error(message):
-        format(message).sys.stderr.write("\x1b[1;31m{}\n")
+        sys.stderr.write("\x1b[1;31m{}\n".format(message))
