@@ -4,7 +4,7 @@ import sys
 from typing import List
 from pathlib import Path
 
-rom docutils.core import publish_parts
+from docutils.core import publish_parts
 from markdown import markdown
 from ssg.content import Content
 
@@ -53,4 +53,3 @@ class ReStructuredTextParser(Parser):
         self.write(path, dest, html["html_body"])
         sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata:
         {}\n".format(path.name, content))
-        
